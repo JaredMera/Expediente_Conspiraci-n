@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#1b140c" />
+<title>Expediente: culpable de conspirar 🌻</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Special+Elite&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+
+    --ink:#1b140c;
+    --ink-2:#241a0f;
+    --cork:#7c5c39;
+    --cork-2:#674a2c;
+    --kraft:#d8bd8a;
+    --kraft-2:#c2a873;
+    --paper:#f2e4c2;
+    --paper-2:#e9d7ab;
+    --ink-text:#2a1d10;
+    --cream:#f5ead0;
+    --muted:#c9b892;
+    --gold:#eab13a;
+    --gold-soft:#ffe29a;
+    --twine:#a8382c;
+    --twine-dim:#5b4534;
+    --shadow:0 22px 55px rgba(0,0,0,.45);
+  }
+  html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px);background:var(--ink)}
+  *{box-sizing:border-box}
+  body{
+    margin:0;min-height:100vh;background:var(--ink);
+    background-image:radial-gradient(circle at 50% 0%, rgba(234,177,58,.09), transparent 42%);
+    color:var(--cream);
+    font-family:Georgia,'Times New Roman',serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:600;margin:0}
+  .tag{font-family:'Special Elite',monospace;letter-spacing:.03em;font-size:.72rem;color:#d8c092}
+  .hand{font-family:'Caveat',cursive}
+  button{font:inherit;cursor:pointer}
+  a{color:inherit}
+  .prose{max-width:60ch;text-align:left;line-height:1.85;color:#e7dcc0;font-size:1.02rem}
+  .prose p{margin:0 0 1em}
+  .prose p:last-child{margin-bottom:0}
+
+  .scene{min-height:100svh;display:grid;place-items:center;position:relative;padding:60px 20px;overflow:hidden}
+  .inner{position:relative;z-index:3;width:100%;max-width:640px;text-align:center}
+  .eyebrow{font-family:'Special Elite',monospace;font-size:.74rem;color:#e0c26b;margin-bottom:14px;letter-spacing:.02em}
+  .btn{
+    border:1px solid rgba(234,177,58,.5);color:#1b140c;background:linear-gradient(135deg,var(--gold-soft),var(--gold));
+    border-radius:8px;padding:13px 22px;box-shadow:0 12px 30px rgba(234,177,58,.18);
+    transition:transform .2s ease, box-shadow .2s ease; font-size:.98rem;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(234,177,58,.26)}
+  .btn:focus-visible{outline:2px solid var(--gold-soft);outline-offset:4px}
+  .btn.ghost{background:transparent;color:var(--cream);border-color:rgba(245,234,208,.35);box-shadow:none}
+  .tiny{font-size:.8rem;color:#9d9174;margin-top:14px}
+
+  .stars{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+  .star{position:absolute;width:2.5px;height:2.5px;border-radius:50%;background:#fce9a8;animation:twinkle 3s ease-in-out infinite}
+  @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:.75;transform:scale(1.6)}}
+
+  /* ---------- Scene 0: sobre ---------- */
+  #scene-cover .inner{perspective:1200px}
+  .envelope{width:min(78vw,300px);height:190px;margin:0 auto 34px;position:relative}
+  .env-body{position:absolute;inset:0;background:linear-gradient(160deg,var(--kraft),var(--kraft-2));border-radius:6px;box-shadow:var(--shadow);overflow:hidden}
+  .env-body::after{content:'';position:absolute;left:0;right:0;bottom:0;height:70%;background:linear-gradient(135deg,transparent 49%, rgba(0,0,0,.14) 50%, transparent 51%),linear-gradient(-135deg,transparent 49%, rgba(0,0,0,.14) 50%, transparent 51%)}
+  .env-flap{position:absolute;top:0;left:0;right:0;height:96px;background:linear-gradient(160deg,var(--kraft-2),#a9855a);clip-path:polygon(0 0,100% 0,50% 92%);transform-origin:50% 0%;transition:transform .85s cubic-bezier(.2,.8,.2,1);z-index:2;box-shadow:0 6px 14px rgba(0,0,0,.25)}
+  .seal{position:absolute;left:50%;top:64px;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--gold-soft),var(--gold) 70%);display:grid;place-items:center;font-size:1.3rem;z-index:3;box-shadow:0 4px 10px rgba(0,0,0,.35);transition:opacity .4s ease .2s, transform .4s ease .2s}
+  .envelope.open .env-flap{transform:rotateX(-165deg)}
+  .envelope.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.4)}
+  .envelope:not(.open){cursor:pointer}
+  .hero-msg{opacity:0;transform:translateY(14px);transition:opacity .7s ease .3s, transform .7s ease .3s}
+  .envelope.open ~ .hero-msg{opacity:1;transform:none}
+  h1.title{font-size:clamp(2.3rem,8vw,3.6rem);line-height:1.05;margin-bottom:16px}
+
+  /* ---------- Scene 1: carpeta ---------- */
+  .folder{width:min(86vw,360px);margin:0 auto;position:relative;perspective:1400px}
+  .folder-tab{width:46%;height:22px;background:var(--kraft-2);border-radius:6px 6px 0 0;margin-left:14px}
+  .folder-body{background:linear-gradient(165deg,var(--kraft),var(--kraft-2));border-radius:4px 10px 10px 10px;padding:34px 22px 30px;box-shadow:var(--shadow);position:relative;transform-origin:top center;transition:transform .8s cubic-bezier(.3,.7,.2,1);color:var(--ink-text)}
+  .folder.open .folder-body{transform:rotateX(-8deg) translateY(3px)}
+  .stamp{display:inline-block;border:3px solid var(--twine);color:var(--twine);font-family:'Special Elite',monospace;padding:6px 14px;border-radius:4px;transform:rotate(-7deg);font-size:.82rem;letter-spacing:.05em;opacity:.92;margin-bottom:16px}
+  .folder-body h2{font-size:clamp(1.5rem,6vw,2rem);margin-bottom:6px;color:var(--ink-text)}
+  .case-no{font-family:'Special Elite',monospace;font-size:.78rem;color:#5a4426;margin-bottom:18px}
+  .folder-body p{color:#4a3a22;line-height:1.7;font-size:.95rem;margin:0 0 20px}
+  .folder-body .hand{font-size:1.25rem;color:#5a4426}
+
+  /* ---------- Scene 2: corcho ---------- */
+  #scene-board{padding-bottom:30px}
+  .board-wrap{max-width:680px;width:100%}
+  .board{
+    position:relative;width:100%;aspect-ratio:1/1.08;margin:26px auto 8px;
+    background:
+      radial-gradient(circle at 20% 25%, rgba(0,0,0,.08) 0 2px, transparent 2px),
+      radial-gradient(circle at 70% 60%, rgba(0,0,0,.08) 0 2px, transparent 2px),
+      radial-gradient(circle at 45% 80%, rgba(0,0,0,.06) 0 2px, transparent 2px),
+      linear-gradient(155deg,var(--cork),var(--cork-2));
+    background-size:34px 34px,29px 29px,40px 40px,cover;
+    border-radius:10px;box-shadow:var(--shadow),inset 0 0 60px rgba(0,0,0,.35);
+    border:10px solid #5a3f22;
+    perspective:1000px;
+  }
+  .strings{position:absolute;inset:0;width:100%;height:100%}
+  .strings path{fill:none;stroke:var(--twine-dim);stroke-width:.45;stroke-linecap:round;vector-effect:non-scaling-stroke;transition:stroke .5s ease, filter .5s ease}
+  .strings path.solved{stroke:var(--twine);filter:drop-shadow(0 0 2px rgba(168,56,44,.7))}
+
+  .hub{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--gold-soft),var(--gold) 75%);display:grid;place-items:center;font-size:1.5rem;box-shadow:0 6px 16px rgba(0,0,0,.4);z-index:4;border:0}
+  .hub-label{position:absolute;left:50%;top:calc(44% + 40px);transform:translate(-50%,0);font-size:.95rem;color:#f0e2bb;white-space:nowrap;z-index:4;pointer-events:none}
+
+  .card{
+    position:absolute;left:0;top:0;width:112px;transform:translate(-50%,-50%) rotate(var(--rot));
+    z-index:5;opacity:0;transition:opacity .5s ease, transform .25s ease;transform-style:preserve-3d;
+  }
+  .card.show{opacity:1;animation:pindrop .6s cubic-bezier(.2,.85,.25,1.1) both}
+  @keyframes pindrop{0%{opacity:0;transform:translate(-50%,-70%) rotate(var(--rot)) scale(.6)}70%{opacity:1}100%{opacity:1;transform:translate(-50%,-50%) rotate(var(--rot)) scale(1)}}
+  .card button.face{all:unset;display:block;width:100%;box-shadow:0 10px 22px rgba(0,0,0,.4)}
+  .pin{position:absolute;left:50%;top:-7px;transform:translateX(-50%);width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff8a7a,var(--twine) 70%);box-shadow:0 3px 6px rgba(0,0,0,.5);z-index:6}
+
+  .face.photo{background:var(--paper);padding:8px 8px 12px;border-radius:2px}
+  .photo-top{aspect-ratio:1/.85;border-radius:1px;display:grid;place-items:center;font-size:2.1rem;background:linear-gradient(150deg,#3a2c19,#241a0f)}
+  .photo-cap{margin-top:8px;font-family:'Caveat',cursive;font-size:1.05rem;color:#3a2b16;line-height:1.15;text-align:center}
+  .photo-tag{display:block;text-align:center;font-family:'Special Elite',monospace;font-size:.58rem;color:#7a6845;margin-top:3px}
+
+  .face.note{background:repeating-linear-gradient(var(--paper-2),var(--paper-2) 17px,#e2cd9c 18px);padding:10px 10px 9px;border-radius:2px;border-left:2px solid #b3965f}
+  .note .note-tag{font-family:'Special Elite',monospace;font-size:.6rem;color:#6b5735;display:block;margin-bottom:6px}
+  .note .note-title{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.86rem;color:#2a1d10;line-height:1.2}
+
+  .card.solved .face{box-shadow:0 10px 22px rgba(0,0,0,.4),0 0 0 2px rgba(234,177,58,.5)}
+  .check{position:absolute;right:-6px;bottom:-6px;width:22px;height:22px;border-radius:50%;background:var(--gold);color:#1b140c;display:grid;place-items:center;font-size:.7rem;opacity:0;transform:scale(.5);transition:.3s ease;z-index:7}
+  .card.solved .check{opacity:1;transform:scale(1)}
+
+  .taped::before{content:'';position:absolute;width:44px;height:16px;background:rgba(245,234,208,.55);top:-8px;left:50%;transform:translateX(-50%) rotate(-3deg);box-shadow:0 2px 3px rgba(0,0,0,.2)}
+
+  .progress-row{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:4px}
+  .dots{display:flex;gap:7px}
+  .dot{width:8px;height:8px;border-radius:50%;border:1px solid rgba(234,177,58,.4)}
+  .dot.on{background:var(--gold);box-shadow:0 0 8px rgba(234,177,58,.4)}
+  .progress-text{font-family:'Special Elite',monospace;font-size:.74rem;color:#b7a67c}
+  .verdict-cta{margin-top:18px;opacity:.55;transition:opacity .4s ease, transform .3s ease}
+  .verdict-cta.ready{opacity:1}
+  .verdict-cta.ready .btn{animation:pulseGlow 2.4s ease-in-out infinite}
+  @keyframes pulseGlow{0%,100%{box-shadow:0 12px 30px rgba(234,177,58,.18)}50%{box-shadow:0 12px 38px rgba(234,177,58,.4)}}
+
+  /* ---------- Modal ---------- */
+  .modal{position:fixed;inset:0;display:grid;place-items:center;padding:22px;background:rgba(8,6,3,.74);backdrop-filter:blur(8px);z-index:30;opacity:0;pointer-events:none;transition:opacity .3s ease}
+  .modal.open{opacity:1;pointer-events:auto}
+  .report{width:min(560px,100%);max-height:84svh;overflow-y:auto;background:var(--paper);color:var(--ink-text);border-radius:3px;padding:30px 26px 26px;box-shadow:var(--shadow);position:relative;transform:translateY(14px) rotate(-.4deg);transition:transform .35s ease}
+  .modal.open .report{transform:none}
+  .report::before{content:'';position:absolute;top:16px;left:22px;width:34px;height:14px;background:rgba(90,68,38,.18);transform:rotate(-4deg)}
+  .clip{position:absolute;top:-10px;left:26px;width:22px;height:38px;border:4px solid #98897a;border-bottom:none;border-radius:10px 10px 0 0;transform:rotate(-8deg);opacity:.85}
+  .close{position:absolute;right:12px;top:10px;border:0;background:transparent;color:#6b5735;font-size:1.5rem}
+  .report .tag{color:#7a6845;margin-bottom:6px;display:block}
+  .report h3{font-size:clamp(1.3rem,5vw,1.7rem);margin:2px 0 14px;color:#241a0f}
+  .report p{font-size:.98rem;line-height:1.8;color:#3a2b16;margin:0 0 1em}
+  .qa-item{margin-bottom:12px;border-top:1px dashed #b3a276;padding-top:12px}
+  .qa-item:first-of-type{border-top:none;padding-top:0}
+  .qa-q{font-weight:600;color:#241a0f;margin-bottom:8px;font-size:.96rem}
+  .qa-btn{border:1px solid #8a7350;background:transparent;color:#5a4426;border-radius:6px;padding:7px 12px;font-size:.82rem}
+  .qa-a{font-family:'Caveat',cursive;font-size:1.15rem;color:var(--twine);margin-top:9px;display:none}
+  .qa-item.revealed .qa-a{display:block}
+  .qa-item.revealed .qa-btn{display:none}
+
+  /* ---------- Scene 3: veredicto ---------- */
+  #scene-verdict .inner{text-align:left;max-width:560px}
+  #scene-verdict .eyebrow,#scene-verdict h2{text-align:center}
+  .factor-list{margin:22px 0;padding:0;list-style:none}
+  .factor-list li{opacity:0;transform:translateX(-8px);transition:opacity .5s ease,transform .5s ease;font-size:.92rem;color:#d8c8a0;padding:9px 0 9px 22px;position:relative;border-bottom:1px solid rgba(216,192,146,.14)}
+  .factor-list li::before{content:'—';position:absolute;left:0;color:var(--twine)}
+  .factor-list li.show{opacity:1;transform:none}
+  .gauge{text-align:center;margin:8px 0 26px}
+  .gauge-num{font-family:'Fraunces',Georgia,serif;font-size:clamp(2.6rem,14vw,4rem);color:var(--gold-soft);font-variant-numeric:tabular-nums}
+  .gauge-label{font-family:'Special Elite',monospace;font-size:.72rem;color:#a99872;margin-top:2px}
+  .verdict-stamp{text-align:center;margin:6px 0 30px;opacity:0;transform:scale(1.5) rotate(-8deg);transition:opacity .3s ease, transform .3s cubic-bezier(.2,1.4,.4,1)}
+  .verdict-stamp.show{opacity:1;transform:scale(1) rotate(-6deg)}
+  .verdict-stamp span{display:inline-block;border:3px solid var(--gold);color:var(--gold-soft);font-family:'Special Elite',monospace;padding:9px 16px;border-radius:4px;font-size:1rem;letter-spacing:.04em}
+  #scene-verdict .prose{opacity:0;transition:opacity .8s ease;margin:0 auto}
+  #scene-verdict .prose.show{opacity:1}
+
+  /* ---------- Scene 4: final ---------- */
+  .final{background:radial-gradient(circle at 50% 30%, rgba(234,177,58,.1), transparent 50%), linear-gradient(180deg,#181209,#0e0a05)}
+  .final .prose{margin:0 auto 6px}
+  .bloom{width:150px;height:150px;margin:26px auto;position:relative}
+  .stem2{position:absolute;left:50%;bottom:0;width:6px;height:0;background:linear-gradient(90deg,#345b24,#6a8a3d);transform:translateX(-50%);border-radius:6px;transition:height 1s ease .2s}
+  .bloom.show .stem2{height:60px}
+  .head2{position:absolute;left:50%;bottom:56px;width:120px;height:120px;transform:translate(-50%,0) scale(0);transition:transform .9s cubic-bezier(.2,1.3,.3,1) .5s}
+  .bloom.show .head2{transform:translate(-50%,0) scale(1)}
+  .petal2{position:absolute;left:44px;top:2px;width:34px;height:64px;background:linear-gradient(180deg,#fff3ab,var(--gold));border-radius:55% 55% 42% 42%;transform-origin:50% 58px}
+  .petal2:nth-child(1){transform:rotate(0)}.petal2:nth-child(2){transform:rotate(45deg)}.petal2:nth-child(3){transform:rotate(90deg)}.petal2:nth-child(4){transform:rotate(135deg)}.petal2:nth-child(5){transform:rotate(180deg)}.petal2:nth-child(6){transform:rotate(225deg)}.petal2:nth-child(7){transform:rotate(270deg)}.petal2:nth-child(8){transform:rotate(315deg)}
+  .center2{position:absolute;left:39px;top:39px;width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#8a5b0b,#3e2b07 72%);box-shadow:0 0 0 6px rgba(234,177,58,.18)}
+  .quote2{font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:clamp(1.1rem,4vw,1.4rem);color:var(--gold-soft);margin:26px auto;max-width:46ch;text-align:center}
+  .signature{margin-top:22px;color:#d2b54e;font-family:'Caveat',cursive;font-size:1.4rem;text-align:center}
+  .final .eyebrow,.final h2{text-align:center}
+  .replay{margin-top:26px;text-align:center}
+
+  .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,15px);background:rgba(22,17,10,.94);border:1px solid rgba(234,177,58,.2);color:#efe5c4;padding:10px 15px;border-radius:8px;z-index:40;opacity:0;pointer-events:none;transition:.3s;font-size:.82rem;max-width:86vw;text-align:center}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:rgba(234,177,58,.3);border-radius:8px}
+
+  @media(min-width:700px){
+    .card{width:132px}
+    .board{border-width:14px}
+  }
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+
+<!-- SCENE 0 — sobre -->
+<section class="scene" id="scene-cover">
+  <div class="inner">
+    <div class="eyebrow">21 de septiembre</div>
+    <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Abrir sobre">
+      <div class="env-body"></div>
+      <div class="env-flap"></div>
+      <div class="seal">🌻</div>
+    </div>
+    <div class="hero-msg">
+      <h1 class="title">Antes de la flor,<br>un expediente.</h1>
+      <p class="prose" style="margin:0 auto 26px;text-align:center">Hoy se supone que le debía regalar solamente una flor amarilla. Pero entre usted y yo hay demasiada evidencia acumulada como para dejarlo en eso, así que armé algo un poco más completo.</p>
+      <button class="btn" id="toFolder">Abrir expediente</button>
+    </div>
+  </div>
+</section>
+
+<!-- SCENE 1 — carpeta -->
+<section class="scene" id="scene-folder">
+  <div class="inner">
+    <div class="folder" id="folder">
+      <div class="folder-tab"></div>
+      <div class="folder-body">
+        <div class="stamp">caso abierto</div>
+        <h2>Expediente conspirativo</h2>
+        <div class="case-no">Exp. No. 21-09 · Sujeto de interés: usted</div>
+        <p>Contiene evidencia recopilada a lo largo de varias llamadas, videollamadas y una que otra coincidencia sospechosa. Se recomienda revisar todo el corcho antes de sacar conclusiones.</p>
+        <p class="hand">— firma ilegible, pero es la mía</p>
+        <button class="btn" id="openFolder">Abrir carpeta</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENE 2 — corcho -->
+<section class="scene" id="scene-board">
+  <div class="board-wrap">
+    <div class="eyebrow" style="text-align:center">El corcho de evidencias</div>
+    <h2 style="text-align:center;font-size:clamp(1.5rem,6vw,2rem)">Toque cualquier pista</h2>
+    <p class="tiny" style="text-align:center">No hay un orden correcto. Ábralas como quiera.</p>
+    <div class="board" id="board">
+      <svg class="strings" id="strings" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+      <button class="hub" id="hub" aria-label="Centro del expediente">🌻</button>
+      <span class="hub-label hand">¿por qué?</span>
+    </div>
+    <div class="progress-row">
+      <div class="dots" id="dots"></div>
+      <div class="progress-text" id="progressText">0 de 7 evidencias reveladas</div>
+      <div class="verdict-cta" id="verdictCta">
+        <button class="btn ghost" id="toVerdict">Ver el veredicto</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENE 3 — veredicto -->
+<section class="scene" id="scene-verdict">
+  <div class="inner">
+    <div class="eyebrow">Cierre del caso</div>
+    <h2 style="font-size:clamp(1.6rem,6vw,2.3rem);margin-bottom:22px">El caso imposible</h2>
+    <div class="gauge">
+      <div class="gauge-num" id="gaugeNum">100%</div>
+      <div class="gauge-label">probabilidad estimada de que esto pasara</div>
+    </div>
+    <ul class="factor-list" id="factorList"></ul>
+    <div class="verdict-stamp" id="verdictStamp"><span>y aún así, aquí seguimos</span></div>
+    <div class="prose" id="verdictProse">
+      <p>Le pregunté una vez, insistí más de lo normal, hasta que usted contestó algo que no esperaba: que no se arrepiente de nada desde el principio. Que esto no es un recuerdo que se guarda y ya, sino algo que se sigue viviendo. Que no lo va a olvidar.</p>
+      <p>Nadie calcula que valga la pena cambiar la forma en que ve a una persona por culpa de una pantalla. Nadie planea que una desconfianza tan razonable se convierta en confianza. Pero aquí seguimos, siendo la excepción que ese primer porcentaje nunca vio venir.</p>
+    </div>
+    <div style="text-align:center;margin-top:30px">
+      <button class="btn" id="toFinal">Un último detalle</button>
+    </div>
+  </div>
+</section>
+
+<!-- SCENE 4 — final -->
+<section class="scene final" id="scene-final">
+  <div class="inner">
+    <div class="eyebrow">Fuera del expediente</div>
+    <h2 style="font-size:clamp(1.8rem,7vw,2.6rem);margin-bottom:20px">Lo que no cupo en el corcho</h2>
+    <div class="prose">
+      <p>Hay una prueba que nunca llegó al corcho: aquel collage que hizo usted después de que le pedí una foto que me recordara a usted. No me mandó una foto. Me mandó varias, pensadas, acomodadas, con más cuidado del que esperaba. Ese tipo de detalle no sale por accidente.</p>
+      <p>Sé que anda con cámara nueva, lista para atrapar luces y ángulos que casi nadie más nota. Yo sigo sin cámara, pero ya aprendí a guardar mis propios momentos, solo que los míos se quedan en la memoria en lugar de en una tarjeta SD.</p>
+    </div>
+    <div class="bloom" id="bloom">
+      <div class="stem2"></div>
+      <div class="head2">
+        <div class="petal2"></div><div class="petal2"></div><div class="petal2"></div><div class="petal2"></div>
+        <div class="petal2"></div><div class="petal2"></div><div class="petal2"></div><div class="petal2"></div>
+        <div class="center2"></div>
+      </div>
+    </div>
+    <p class="quote2">Hay detalles que se sienten tan cerca que, a veces, se me olvida que nos separa una pantalla.</p>
+    <div class="prose" style="text-align:center;margin:0 auto">
+      <p>Que nunca le falten personas que le recuerden lo mucho que la aprecian, ni momentos que valga la pena guardar.</p>
+    </div>
+    <div class="signature">feliz día de las flores amarillas 🌻</div>
+    <div class="replay"><button class="btn ghost" id="replayBtn">Volver a abrir el expediente ✨</button></div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="report" role="dialog" aria-modal="true" aria-labelledby="reportTitle">
+    <div class="clip"></div>
+    <button class="close" id="closeBtn" aria-label="Cerrar">×</button>
+    <span class="tag" id="reportTag"></span>
+    <h3 id="reportTitle"></h3>
+    <div id="reportBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  const evidence = [
+    { id:'A', kind:'note', icon:'🕸️', tag:'Exhibit A · malentendido', title:'La red que no era red',
+      x:50, y:14, rot:-4,
+      text:`Todo empezó porque usted pidió, en medio de una partida, algo tan simple como "una red". Y yo, con toda mi sabiduría mal aplicada, pensé en cualquier red del planeta: de pesca, de voleibol, hasta eléctrica. La única que nunca se me ocurrió fue la obvia. Ese fue, oficialmente, el primer misterio sin resolver de este expediente.` },
+
+    { id:'B', kind:'note', icon:'📞', tag:'Exhibit B · llamadas', title:'Las llamadas contadas',
+      x:76.6, y:25.25, rot:5,
+      text:`Hay un tipo de llamada que usted administra con mucho cuidado, casi como un recurso limitado. Recuerdo una en la que no podía hablar porque sus papás andaban cerca, así que quedamos en algo raro: yo hablaba, usted contestaba por mensaje. Le dije en broma que tenía toda la ventaja por no decir nada en voz alta. Usted me corrigió: que prestar atención también cuenta, y que le había gustado esa manera distinta de hablar. Terminamos hablando de pan dulce, de colores favoritos, de dudas que ninguno esperaba compartir. Para alguien tan reservado con sus llamadas, dejarme entrar un poco a esa rutina ya era decir bastante.` },
+
+    { id:'C', kind:'photo', icon:'🎶', tag:'Exhibit C · el encuentro', title:'El día de la canción',
+      x:83.15, y:50.66, rot:-3,
+      text:`Ese día no tenía tutorías ni clases, cosa que hasta a usted le pareció sospechosa. Yo tenía una canción nueva y quería ver, en tiempo real, cómo reaccionaba al escucharla. Llegó nerviosa, se le notaba en la voz y en cómo evitaba la cámara al principio. Pero conforme sonaba la canción, esa pena se fue convirtiendo en otra cosa, y terminó diciendo que fue de lo más bonito que había escuchado. Ese fue, oficialmente, el día en que nos conocimos de verdad: a través de una pantalla, sin ensayo ni plan.` },
+
+    { id:'D', kind:'photo', icon:'👀', tag:'Exhibit D · detalle mínimo', title:'El detalle que no esperaba',
+      x:64.75, y:71.03, rot:4,
+      text:`Hubo un momento en que usted se acercó más a la cámara, sin ninguna razón especial. Yo dije que había notado algo y me quedé callado un rato, dudando si decirlo. Al final se lo dije: que me gustó ver sus ojos de cerca, aunque fuera a través de una pantalla. Se quedó sin palabras. Después confesó que esperaba cualquier otra cosa, menos esa. Lo que más le sorprendió no fueron los ojos en sí, sino que alguien pusiera tanta atención a un detalle tan pequeño en alguien que apenas empezaba a conocer, sin haberla visto nunca en persona.` },
+
+    { id:'E', kind:'note', icon:'🙈', tag:'Exhibit E · interrogatorio', title:'Las preguntas que evade',
+      x:35.25, y:71.03, rot:-5,
+      quiz:[
+        {q:'¿Qué fue lo que más le gustó de esa primera videollamada?', a:'Cambia de tema. Otra vez. 🙈'},
+        {q:'¿Qué sintió cuando le dije lo de sus ojos?', a:'Silencio total. Pero de esos silencios donde se nota la sonrisa.'},
+        {q:'¿Se arrepiente de algo desde que empezamos a hablar?', a:'No contesta. Pero tampoco lo niega.'}
+      ],
+      intro:`Hay preguntas que usted prefiere no responder. No porque no tenga las respuestas, sino porque la pena gana la partida. Aquí unas cuantas, directo del expediente:` },
+
+    { id:'F', kind:'photo', icon:'🎬', tag:'Exhibit F · persistencia', title:'La película que casi no llega',
+      x:16.85, y:50.66, rot:3,
+      text:`Entre errores de plataforma, horarios que no cuadraban y como tres intentos fallidos, ver esa película se sintió casi imposible. Pudimos rendirnos en cualquiera de esos intentos y nadie lo habría notado. Pero ninguno quiso soltarlo. Al final la vimos completa, y lo que más se quedó conmigo no fue la película, sino que usted dijo que le gustó que no me rindiera. A veces lo pequeño dice más que lo grande.` },
+
+    { id:'G', kind:'photo', icon:'📷', tag:'Exhibit G · su mirada', title:'Su manera de mirar',
+      x:23.4, y:25.25, rot:-6,
+      text:`Usted tiene una manera particular de ver lo que otros ignoran: una luz específica, un ángulo raro, una hoja que cualquiera pisaría sin notar. No es solo tomar fotos, es detenerse a mirar de verdad. Creo que un poco de eso se me pegó, porque desde que la conozco empecé a fijarme más en los detalles pequeños de las cosas. Quizás por eso noté lo de sus ojos aquella vez.` },
+  ];
+
+  const els = {
+    envelope: document.getElementById('envelope'),
+    toFolder: document.getElementById('toFolder'),
+    folder: document.getElementById('folder'),
+    openFolder: document.getElementById('openFolder'),
+    board: document.getElementById('board'),
+    strings: document.getElementById('strings'),
+    dots: document.getElementById('dots'),
+    progressText: document.getElementById('progressText'),
+    verdictCta: document.getElementById('verdictCta'),
+    toVerdict: document.getElementById('toVerdict'),
+    modal: document.getElementById('modal'),
+    reportTag: document.getElementById('reportTag'),
+    reportTitle: document.getElementById('reportTitle'),
+    reportBody: document.getElementById('reportBody'),
+    closeBtn: document.getElementById('closeBtn'),
+    toast: document.getElementById('toast'),
+    hub: document.getElementById('hub'),
+    toFinal: document.getElementById('toFinal'),
+    replayBtn: document.getElementById('replayBtn'),
+  };
+
+  let opened = new Set();
+
+  function showToast(text){
+    els.toast.textContent = text;
+    els.toast.classList.add('show');
+    clearTimeout(showToast.t);
+    showToast.t = setTimeout(()=>els.toast.classList.remove('show'), 2400);
+  }
+
+  function makeStars(){
+    const wrap = document.getElementById('stars');
+    for(let i=0;i<50;i++){
+      const s=document.createElement('span'); s.className='star';
+      s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*100+'%';
+      s.style.animationDelay=(Math.random()*3)+'s';
+      s.style.opacity=(.12+Math.random()*.5).toFixed(2);
+      wrap.appendChild(s);
+    }
+  }
+
+  function buildBoard(){
+    els.strings.innerHTML='';
+    els.board.querySelectorAll('.card').forEach(c=>c.remove());
+    els.dots.innerHTML='';
+
+    evidence.forEach((m,i)=>{
+      const dot=document.createElement('span'); dot.className='dot'; dot.id='dot-'+m.id;
+      els.dots.appendChild(dot);
+
+      const cx=50, cy=44;
+      const mx=(cx+m.x)/2, my=(cy+m.y)/2 - 4;
+      const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d', `M${cx},${cy} Q${mx},${my} ${m.x},${m.y}`);
+      path.id='str-'+m.id;
+      els.strings.appendChild(path);
+
+      const card=document.createElement('button');
+      card.className='card'+(m.kind==='note' && Math.random()<0.5 ? ' taped':'');
+      card.style.setProperty('--rot', m.rot+'deg');
+      card.style.left=m.x+'%'; card.style.top=m.y+'%';
+      card.id='card-'+m.id;
+      card.setAttribute('aria-label', m.title);
+
+      if(m.kind==='photo'){
+        card.innerHTML=`
+          <span class="pin"></span>
+          <span class="face photo">
+            <span class="photo-top">${m.icon}</span>
+            <span class="photo-cap">${m.title}</span>
+            <span class="photo-tag">${m.tag}</span>
+          </span>
+          <span class="check">✓</span>`;
+      } else {
+        card.innerHTML=`
+          <span class="pin"></span>
+          <span class="face note">
+            <span class="note-tag">${m.tag}</span>
+            <span class="note-title">${m.title}</span>
+          </span>
+          <span class="check">✓</span>`;
+      }
+
+      card.addEventListener('click', ()=>openReport(m.id));
+      addTilt(card);
+      els.board.appendChild(card);
+
+      setTimeout(()=>card.classList.add('show'), 200+i*160);
+    });
+
+    updateProgress();
+  }
+
+  function addTilt(el){
+    el.addEventListener('mousemove', e=>{
+      const r=el.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+      el.style.transform = `translate(-50%,-50%) rotate(var(--rot)) rotateX(${(-py*12).toFixed(2)}deg) rotateY(${(px*12).toFixed(2)}deg)`;
+    });
+    el.addEventListener('mouseleave', ()=>{ el.style.transform = ''; });
+  }
+
+  function openReport(id){
+    const m = evidence.find(e=>e.id===id);
+    opened.add(id);
+    document.getElementById('dot-'+id)?.classList.add('on');
+    document.getElementById('card-'+id)?.classList.add('solved');
+    document.getElementById('str-'+id)?.classList.add('solved');
+    updateProgress();
+
+    els.reportTag.textContent = m.tag;
+    els.reportTitle.textContent = m.title;
+
+    if(m.quiz){
+      let html = `<p>${m.intro}</p>`;
+      m.quiz.forEach((qa,i)=>{
+        html += `<div class="qa-item" data-i="${i}">
+          <div class="qa-q">${qa.q}</div>
+          <button class="qa-btn" type="button">Presionar para ver</button>
+          <div class="qa-a hand">${qa.a}</div>
+        </div>`;
+      });
+      els.reportBody.innerHTML = html;
+      els.reportBody.querySelectorAll('.qa-item').forEach(item=>{
+        item.querySelector('.qa-btn').addEventListener('click', ()=> item.classList.add('revealed'));
+      });
+    } else {
+      els.reportBody.innerHTML = `<p>${m.text}</p>`;
+    }
+
+    els.modal.classList.add('open');
+    els.modal.setAttribute('aria-hidden','false');
+  }
+
+  function closeModal(){
+    els.modal.classList.remove('open');
+    els.modal.setAttribute('aria-hidden','true');
+  }
+
+  function updateProgress(){
+    els.progressText.textContent = `${opened.size} de ${evidence.length} evidencias reveladas`;
+    if(opened.size >= evidence.length){
+      els.verdictCta.classList.add('ready');
+    } else {
+      els.verdictCta.classList.remove('ready');
+    }
+  }
+
+  // Envelope
+  function toggleEnvelope(){
+    els.envelope.classList.toggle('open');
+  }
+  els.envelope.addEventListener('click', toggleEnvelope);
+  els.envelope.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggleEnvelope(); }});
+  els.toFolder.addEventListener('click', ()=>{
+    document.getElementById('scene-folder').scrollIntoView({behavior:'smooth'});
+  });
+
+  // Folder
+  els.openFolder.addEventListener('click', ()=>{
+    els.folder.classList.add('open');
+    setTimeout(()=>{
+      document.getElementById('scene-board').scrollIntoView({behavior:'smooth'});
+      showToast('Toque las evidencias del corcho, en el orden que quiera 🌻');
+    }, 500);
+  });
+
+  // Modal close
+  els.closeBtn.addEventListener('click', closeModal);
+  els.modal.addEventListener('click', e=>{ if(e.target===els.modal) closeModal(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+
+  // Hub
+  els.hub.addEventListener('click', ()=>{
+    showToast(opened.size >= evidence.length ? 'Ya tiene toda la evidencia. Falta el veredicto.' : 'Siga abriendo evidencia para descubrirlo…');
+  });
+
+  // To verdict
+  els.toVerdict.addEventListener('click', ()=>{
+    document.getElementById('scene-verdict').scrollIntoView({behavior:'smooth'});
+  });
+  els.toFinal.addEventListener('click', ()=>{
+    document.getElementById('scene-final').scrollIntoView({behavior:'smooth'});
+  });
+
+  // Verdict animation
+  const factors = [
+    {label:'Conocer a alguien completamente en línea, sin haberla visto nunca en persona', drop:55},
+    {label:'Horarios que casi nunca cuadraban entre los dos', drop:20},
+    {label:'La desconfianza normal de no saber si hay alguien real del otro lado', drop:15},
+    {label:'Mil razones cotidianas para simplemente dejar de hablar', drop:9},
+  ];
+  let verdictRan=false;
+  function runVerdict(){
+    if(verdictRan) return; verdictRan=true;
+    const list = document.getElementById('factorList');
+    const gaugeNum = document.getElementById('gaugeNum');
+    const stamp = document.getElementById('verdictStamp');
+    const prose = document.getElementById('verdictProse');
+    let value = 100;
+    factors.forEach((f,i)=>{
+      setTimeout(()=>{
+        const li=document.createElement('li');
+        li.textContent = f.label;
+        list.appendChild(li);
+        requestAnimationFrame(()=>li.classList.add('show'));
+        value = Math.max(1, value - f.drop);
+        gaugeNum.textContent = (i===factors.length-1 ? '0.4%' : value+'%');
+      }, i*900);
+    });
+    setTimeout(()=>{
+      stamp.classList.add('show');
+    }, factors.length*900 + 400);
+    setTimeout(()=>{
+      prose.classList.add('show');
+    }, factors.length*900 + 900);
+  }
+
+  // Bloom
+  let bloomRan=false;
+  function runBloom(){
+    if(bloomRan) return; bloomRan=true;
+    document.getElementById('bloom').classList.add('show');
+  }
+
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+      if(entry.target.id==='scene-verdict') runVerdict();
+      if(entry.target.id==='scene-final') runBloom();
+    });
+  }, {threshold:.35});
+  io.observe(document.getElementById('scene-verdict'));
+  io.observe(document.getElementById('scene-final'));
+
+  // Replay
+  els.replayBtn.addEventListener('click', ()=>{
+    opened.clear();
+    els.envelope.classList.remove('open');
+    els.folder.classList.remove('open');
+    buildBoard();
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  makeStars();
+  buildBoard();
+})();
+</script>
+</body>
+</html>
